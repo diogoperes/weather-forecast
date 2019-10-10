@@ -1,0 +1,118 @@
+.weather-card {
+  max-width: 400px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: auto;
+}
+
+.weather-card span {
+  display: block;
+}
+
+.date-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.temperatures-container {
+  display: inline-block;
+}
+
+.current-temperature {
+  display: inline-block;
+}
+
+.location {
+  text-align: left;
+  margin-right: 10px;
+}
+
+.dates {
+  text-align: right;
+  margin-left: 10px;
+}
+
+.min-max-temperatures {
+  display: flex;
+  justify-content: space-around;
+  color: #6b6b6b;
+}
+
+.max-temperature, .min-temperature {
+  margin: 0 5px;
+}
+.min-temperature {
+  color: #0a91c5;
+}
+.max-temperature {
+  color: #de5151;
+}
+
+.today-temp-container  .icon-container {
+  padding: 14px 0 14px 0;
+  display: inline-block;
+  margin: 0 20px;
+  vertical-align: top;
+}
+
+.today-temp-container  .icon-container i.wi {
+  font-size: 60px;
+}
+
+.weather-data-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.today-temp-container .container.wind .wi {
+  font-size: 40px;
+  line-height: 32px;
+}
+
+.weather-data-container .container {
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  flex: 1;
+  padding: 0 5px;
+}
+
+.container .data p {
+  text-align: left;
+  margin-bottom: 2px;
+  margin-left: 5px;
+  line-height: 15px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.container .data p:nth-child(2) {
+  color: #6b6b6b;
+}
+
+.wi-wind {
+  width: 32px;
+  height: 32px;
+}
+
+.container.humidity .wi {
+  font-size: 46px;
+  line-height: 38px;
+}
+
+.container.air-quality .wi {
+  font-size: 34px;
+  line-height: 34px;
+}
+
+.air-quality .ball {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 3px;
+}
