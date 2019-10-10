@@ -1,3 +1,5 @@
+import { IP_API_URL, OPENCAGEDATA_LAT_LON_URL } from '../constants/geolocationEndpoints';
+
 /**
  * @return {Promise}
  */
@@ -39,8 +41,7 @@ export const getLocationByNavigatorGeolocation = () => {
 };
 
 export const getLocationByIp = () => {
-    let url = 'https://ipapi.co/json/';
-    return fetch(url)
+  return fetch(IP_API_URL)
             .then(response => response.json())
             .then(data => {
               console.log('getLocationByIp', data);
@@ -56,9 +57,7 @@ export const getLocationByIp = () => {
 
 
 export function getCityNameByLatLng(lat, lng) {
-  let API_KEY = '19dffb48f1a5468f8bfabd4e95c31273';
-  let url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${API_KEY}`;
-  return fetch(url)
+  return fetch(OPENCAGEDATA_LAT_LON_URL(lat, lng))
           .then(response => response.json())
           .then(data => {
             console.log('getCityNameByLatLng', data);
