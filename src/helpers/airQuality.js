@@ -1,9 +1,7 @@
-const APP_ID = 'bf41500f10f1d269963a287a6f2b16dc28190796';
-const API_URL = 'https://api.waqi.info/feed';
+import { WAQI_URL } from '../constants/airQualityEndpoint';
 
 export const getAirQualityByCoordinates = (lat, lon) => {
-    let url = `${API_URL}/geo:${lat};${lon}/?token=${APP_ID}`;
-    return fetch(url)
+    return fetch(WAQI_URL(lat, lon) )
         .then(response => response.json())
         .then(data => {
             console.log('getAirQualityByCoordinates', data);

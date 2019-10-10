@@ -44,7 +44,7 @@ it('Get Today Weather', async () => {
                 }),
             ).min(1).required(),
             wind: Joi.object({
-                deg: Joi.number().required(),
+                deg: Joi.number(),
                 speed: Joi.number().required(),
             }),
         }));
