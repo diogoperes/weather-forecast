@@ -4,10 +4,15 @@ export const getAirQualityByCoordinates = (lat, lon) => {
     return fetch(WAQI_URL(lat, lon) )
         .then(response => response.json())
         .then(data => {
-            console.log('getAirQualityByCoordinates', data);
+            // console.log('getAirQualityByCoordinates', data);
+            
+            if (Object.keys(data).length === 0) {
+                throw new Error('Empty Response');
+            }
+
             return data.data;
         })
-        .catch(err => console.error(err));
+        // .catch(err => err);
 };
 
 export const getAirQualityInfoByIndex = (index) => {
