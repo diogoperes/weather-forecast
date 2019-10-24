@@ -52,7 +52,7 @@ export const getLocationByIp = () => {
                 country: data.country
               };
             })
-            .catch(err => console.error(err));
+            // .catch(err => console.error(err));
 };
 
 
@@ -68,5 +68,5 @@ export function getCityNameByLatLng(lat, lng) {
               country: data.results[0].components.country_code.toUpperCase()
             };
           })
-          .catch(err => console.error(err));
+          // .catch(err => console.error(err));
 }

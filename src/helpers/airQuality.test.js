@@ -27,7 +27,7 @@ test('Successfull request', () => {
         });
 });
 
-test('Empty response', () => {
+test('Test Empty response', () => {
     fetch.mockResponseOnce(JSON.stringify({}));
     const onResponse = jest.fn();
     const onError = jest.fn();
@@ -46,7 +46,7 @@ test('Empty response', () => {
         });
 });
 
-test('Error 404', () => {
+test('Test Error 404', () => {
     fetch.mockReject(new Error('404'))
     const onResponse = jest.fn();
     const onError = jest.fn();
@@ -65,7 +65,7 @@ test('Error 404', () => {
         });
 });
 
-describe('Test getAirQualityInfoByIndex', () => {
+describe('getAirQualityInfoByIndex', () => {
     test.each`
         input     | expectedResult
         ${23}  | ${{ label: 'Good', color: '#009966' }}
