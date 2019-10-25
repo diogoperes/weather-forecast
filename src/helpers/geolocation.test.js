@@ -46,24 +46,35 @@ test('Test getLocationByNavigatorGeolocation with Geolocation undefined', () => 
 });
 
 describe('Test getLocationByNavigatorGeolocation error codes', function () {
-    it('geolocation undefined', function () {
-        const mockGeolocation = {
-            getCurrentPosition: jest.fn()
-                .mockImplementationOnce((success, error) => Promise.resolve(error({ code: error.PERMISSION_DENIED })))
-        };
-        global.navigator.geolocation = mockGeolocation;
-        const onResponse = jest.fn();
-        const onError = jest.fn();
-        return getLocationByNavigatorGeolocation()
-            .then(onResponse)
-            .catch(onError)
-            .then(() => {
-                expect(onResponse).not.toHaveBeenCalled();
-                expect(onError).toHaveBeenCalled();
-                expect(onError.mock.calls[0][0].message).toBe('User denied the request for Geolocation');
-            });
-    });
-});
+    beforeEach(() => fetch.resetMocks());
+
+    test.each`
+        input     | expectedResult
+        ${0}  | ${'User denied the request for Geolocation'}
+        ${1}  | ${'Location information is unavailable'}
+        ${2}  | ${'The request to get user location timed out'}
+        ${404}  | ${'An unknown error occurred'}
+        // add new test cases here
+        `('test $input error. Expected: $expectedResult', ({ input, expectedResult }) => {
+        
+            const mockGeolocation = {
+                getCurrentPosition: jest.fn()
+                    .mockImplementationOnce((success, error) => Promise.resolve(error({ code: input})))
+            };
+            global.navigator.geolocation = mockGeolocation;
+            const onResponse = jest.fn();
+            const onError = jest.fn();
+            return getLocationByNavigatorGeolocation()
+                .then(onResponse)
+                .catch(onError)
+                .then(() => {
+                    expect(onResponse).not.toHaveBeenCalled();
+                    expect(onError).toHaveBeenCalled();
+                    expect(onError.mock.calls[0][0].message).toBe(expectedResult);
+                });
+
+    })
+});    
 
 // TESTS FOR getLocationByIp
 
