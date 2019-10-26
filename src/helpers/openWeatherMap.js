@@ -23,7 +23,7 @@ export function getWeatherByCoordinates(lat, lon) {
       // getWeatherWeek(data.name);
       // getWeatherToday(data);
     })
-    .catch(err => console.log(err));
+    // .catch(err => console.log(err));
 
 }
 
@@ -37,7 +37,7 @@ export function getFiveDayWeatherByCoordinates(id) {
       console.log('getFiveDayWeatherByCoordinates: ', data);
       return data;
     })
-    .catch(err => console.log(err));
+    // .catch(err => console.log(err));
 
 }
 

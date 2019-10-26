@@ -160,6 +160,29 @@ test('Test getCityNameByLatLng Successfull Request', () => {
         });
 });
 
+test('Test getCityNameByLatLng With Town and not City name Successfull Request', () => {
+    fetch.mockResponseOnce(JSON.stringify({ "documentation": "https://opencagedata.com/api", "licenses": [{ "name": "see attribution guide", "url": "https://opencagedata.com/credits" }], "rate": { "limit": 2500, "remaining": 2494, "reset": 1572134400 }, "results": [{ "annotations": { "DMS": { "lat": "37° 8' 39.09408'' N", "lng": "8° 33' 47.03580'' W" }, "MGRS": "29SNB3880310957", "Maidenhead": "IM57rd24ko", "Mercator": { "x": -953236.091, "y": 4433421.664 }, "OSM": { "edit_url": "https://www.openstreetmap.org/edit?way=513977814#map=17/37.14419/-8.56307", "url": "https://www.openstreetmap.org/?mlat=37.14419&mlon=-8.56307#map=17/37.14419/-8.56307" }, "UN_M49": { "regions": { "EUROPE": "150", "PT": "620", "SOUTHERN_EUROPE": "039", "WORLD": "001" }, "statistical_groupings": ["MEDC"] }, "callingcode": 351, "currency": { "alternate_symbols": [], "decimal_mark": ",", "html_entity": "&#x20AC;", "iso_code": "EUR", "iso_numeric": "978", "name": "Euro", "smallest_denomination": 1, "subunit": "Cent", "subunit_to_unit": 100, "symbol": "€", "symbol_first": 1, "thousands_separator": "." }, "flag": "🇵🇹", "geohash": "ey9gm1usd57sdqybtu4w", "qibla": 96.73, "roadinfo": { "drive_on": "right", "road": "Rua Quinta das Oliveiras", "road_type": "residential", "speed_in": "km/h" }, "sun": { "rise": { "apparent": 1572072780, "astronomical": 1572067500, "civil": 1572071160, "nautical": 1572069300 }, "set": { "apparent": 1572111780, "astronomical": 1572117000, "civil": 1572113400, "nautical": 1572115200 } }, "timezone": { "name": "Europe/Lisbon", "now_in_dst": 1, "offset_sec": 3600, "offset_string": "+0100", "short_name": "WEST" }, "what3words": { "words": "dare.declines.mulled" } }, "bounds": { "northeast": { "lat": 37.1444407, "lng": -8.5602781 }, "southwest": { "lat": 37.1424224, "lng": -8.5639493 } }, "components": { "ISO_3166-1_alpha-2": "PT", "ISO_3166-1_alpha-3": "PRT", "_type": "road", "continent": "Europe", "country": "Portugal", "country_code": "pt", "county": "Portimão", "neighbourhood": "Bemposta", "political_union": "European Union", "postcode": "8500-449", "road": "Rua Quinta das Oliveiras", "road_type": "residential", "state": "Algarve", "state_district": "Algarve", "town": "Portimão" }, "confidence": 9, "formatted": "Rua Quinta das Oliveiras, 8500-449 Portimão, Portugal", "geometry": { "lat": 37.1441928, "lng": -8.5630655 } }], "status": { "code": 200, "message": "OK" }, "stay_informed": { "blog": "https://blog.opencagedata.com", "twitter": "https://twitter.com/opencagedata" }, "thanks": "For using an OpenCage API", "timestamp": { "created_http": "Sat, 26 Oct 2019 18:40:02 GMT", "created_unix": 1572115202 }, "total_results": 1 }));
+    const onResponse = jest.fn();
+    const onError = jest.fn();
+
+    //LISBON
+    let lat = 38.72;
+    let lon = -9.14;
+
+    return getCityNameByLatLng(lat, lon)
+        .then(onResponse)
+        .catch(onError)
+        .then(() => {
+            expect(onResponse).toHaveBeenCalled();
+            expect(onError).not.toHaveBeenCalled();
+
+            expect(onResponse.mock.calls[0][0].latitude).toEqual(lat);
+            expect(onResponse.mock.calls[0][0].longitude).toEqual(lon);
+            expect(onResponse.mock.calls[0][0].city).toEqual('Portimão');
+            expect(onResponse.mock.calls[0][0].country).toEqual('PT');
+        });
+});
+
 test('Test getCityNameByLatLng Error 404', () => {
     fetch.mockReject(new Error('404'))
     const onResponse = jest.fn();

@@ -48,10 +48,12 @@ export function getCityNameByLatLng(lat, lng) {
           .then(response => response.json())
           .then(data => {
             console.log('getCityNameByLatLng', data);
+            let city = data.results[0].components.city !== undefined ? data.results[0].components.city : data.results[0].components.town;
+
             return {
               latitude: lat,
               longitude: lng,
-              city: data.results[0].components.city,
+              city: city,
               country: data.results[0].components.country_code.toUpperCase()
             };
           })
