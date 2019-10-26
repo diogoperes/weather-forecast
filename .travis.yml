@@ -7,7 +7,7 @@ cache:
 script:
   - npm test
   - npm run build
-after:
+after_script:
   - cat ./coverage/lcov.info | coveralls
 deploy:
   provider: pages
