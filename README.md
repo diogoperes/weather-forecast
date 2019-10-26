@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.org/diogoperes/weather-forecast.svg?branch=master)](https://travis-ci.org/diogoperes/weather-forecast)
-
-[![Coverage Status](https://coveralls.io/repos/github/diogoperes/weather-forecast/badge.svg?branch=master)](https://coveralls.io/github/diogoperes/weather-forecast?branch=master)
+[![Build Status](https://travis-ci.org/diogoperes/weather-forecast.svg?branch=master)](https://travis-ci.org/diogoperes/weather-forecast) [![Coverage Status](https://coveralls.io/repos/github/diogoperes/weather-forecast/badge.svg?branch=master)](https://coveralls.io/github/diogoperes/weather-forecast?branch=master)
 
 Weather app built with react.
 
