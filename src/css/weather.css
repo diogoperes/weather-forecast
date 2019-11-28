@@ -24,6 +24,10 @@
   display: inline-block;
 }
 
+.location-container {
+  display: inline-block;
+}
+
 .location {
   text-align: left;
   margin-right: 10px;
@@ -43,21 +47,23 @@
 .max-temperature, .min-temperature {
   margin: 0 5px;
 }
+
 .min-temperature {
   color: #0a91c5;
 }
+
 .max-temperature {
   color: #de5151;
 }
 
-.today-temp-container  .icon-container {
+.today-temp-container .icon-container {
   padding: 14px 0 14px 0;
   display: inline-block;
   margin: 0 20px;
   vertical-align: top;
 }
 
-.today-temp-container  .icon-container i.wi {
+.today-temp-container .icon-container i.wi {
   font-size: 60px;
 }
 
@@ -115,4 +121,24 @@
   display: inline-block;
   vertical-align: middle;
   margin-left: 3px;
+}
+
+.location-container form {
+  display: flex;
+}
+
+.location-container form>input {
+  display: inline-block;
+  max-width: 130px;
+  margin: 0 auto;
+  border: none;
+  /* <-- This thing here */
+  border: solid 1px #ccc;
+  border-radius: 5px 0 0 5px;
+  padding-left: 2px;
+}
+
+.location-container form>button {
+  display: inline-block;
+  border-radius: 0 5px 5px 0;
 }

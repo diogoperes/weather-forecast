@@ -8,9 +8,16 @@ import { getAirQualityInfoByIndex } from '../helpers/airQuality';
 
 class Weather extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = { locationSearchValue: '' };
+
+    this.handleLocationChange = this._handleLocationChange.bind(this);
+  }
+
+  _handleLocationChange(event) {
+    this.setState({ locationSearchValue: event.target.value });
+  }
 
 
   render() {
@@ -21,7 +28,13 @@ class Weather extends Component {
       <div className="today-temp-container">
         <div className="weather-card">
           <div className="date-container">
-            <span className="location">{this.props.location.city}, {this.props.location.country}</span>
+            <div className="location-container">
+              <span className="location">{this.props.location.city}, {this.props.location.country}</span>
+              <form onSubmit={(event) => this.props.searchLocationCallBack(event, this.state.locationSearchValue)}>
+                <input type="text" placeholder="City Name" onChange={this.handleLocationChange}></input>
+                <button type="submit">Search</button>
+              </form>
+            </div>
 
             <div className="dates">
               <span className="date-dayname">{getWeekday()}</span><span className="date-day">15 Jan 2019</span>
