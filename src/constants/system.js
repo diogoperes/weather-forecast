@@ -1,1 +1,1 @@
-export const EMULATE_REQUESTS = true;
+export const EMULATE_REQUESTS = false;

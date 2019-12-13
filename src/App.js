@@ -5,10 +5,11 @@ import './App.css';
 // import {getLocationByNavigatorGeolocation, getLocationByIp, getCityNameByLatLng} from './helpers/geolocation';
 // import { getWeatherByCoordinates, getFiveDayWeatherByCoordinates } from './helpers/openWeatherMap';
 // import { getAirQualityByCoordinates } from './helpers/airQuality';
-import { searchCurrentLocation} from './helpers/search';
+import { searchCurrentLocation, searchCity } from './helpers/search';
 import { getLocationCities } from './helpers/openWeatherMap';
 import Weather from "./components/Weather";
 import WeekWeather from "./components/WeekWeather";
+import CitiesList from "./containers/CitiesList";
 
 class App extends Component {
 
@@ -18,7 +19,11 @@ class App extends Component {
     this.state = {
       loadingDescription: 'Fetching geolocation',
       loadingWeather: true,
-      cityList: []
+      citiesList: []
+    };
+
+    this.loadingDescriptionCallback = (text) => {
+      this.setState(() => ({ loadingDescription: text }));
     };
 
     this.searchLocationHandler = this.searchLocationHandler.bind(this);
@@ -26,11 +31,7 @@ class App extends Component {
 
   componentDidMount() {
 
-    let loadingDescriptionCallback = (text) => {
-      this.setState(() => ({ loadingDescription: text }));
-    };
-
-    searchCurrentLocation(loadingDescriptionCallback)
+    searchCurrentLocation(this.loadingDescriptionCallback)
       .then(data => {
         console.log('data', data);
         this.setState(() => ({
@@ -53,7 +54,7 @@ class App extends Component {
     
     getLocationCities(location)
       .then(data => {
-        this.setState(() => ({ cityList: data.list }));
+        this.setState(() => ({ citiesList: data.list }));
       })
       .catch((error) => console.error('An Error Occured: ', error));
 
@@ -61,12 +62,36 @@ class App extends Component {
     event.preventDefault();
   }
 
+  searchCityHandler (cityData) {
+    console.log('searchCityHandler', cityData);
+
+    let lat = cityData.coord.lat;
+    let lon = cityData.coord.lon;
+    let city = cityData.name;
+    let country = cityData.sys.country;
+
+    searchCity(lat, lon, city, country, this.loadingDescriptionCallback)
+        .then(data => {
+          console.log('data', data);
+          this.setState(() => ({
+            location: data.location,
+            todayTemp: data.todayTemp,
+            weekTemp: data.weekTemp,
+            airQuality: data.airQuality,
+            loadingWeather: false,
+            citiesList: []
+          }));
+        })
+        .catch((error) => console.error('An Error Occured: ', error));
+
+  }
+
   render() {
 
     let loadingUI = '';
     if(this.state.loadingWeather) {
       loadingUI = (<div className="loader-container">
-        <div className="loader"></div>
+        <div className="loader"/>
         <div className="loader-description">{this.state.loadingDescription}</div>
       </div>
       );
@@ -85,10 +110,18 @@ class App extends Component {
       );
     }
 
+    let citiesList = '';
+    if ( this.state.citiesList.length > 0 ) {
+      citiesList = <div>
+        <CitiesList citiesList={this.state.citiesList} searchCity={this.searchCityHandler.bind(this)}/>
+      </div>
+    }
+
     return (
       <div className="App">
         {loadingUI}
         {weatherUI}
+        {citiesList}
       </div>
     );
   }

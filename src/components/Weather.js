@@ -31,7 +31,7 @@ class Weather extends Component {
             <div className="location-container">
               <span className="location">{this.props.location.city}, {this.props.location.country}</span>
               <form onSubmit={(event) => this.props.searchLocationCallBack(event, this.state.locationSearchValue)}>
-                <input type="text" placeholder="City Name" onChange={this.handleLocationChange}></input>
+                <input type="text" placeholder="City Name" onChange={this.handleLocationChange}/>
                 <button type="submit">Search</button>
               </form>
             </div>
@@ -45,7 +45,7 @@ class Weather extends Component {
           <div className="temperature-icon-container">
             <div className="icon-container">
               {/* {iconCode} */}
-              <i className={`wi ${iconCode}`}></i>
+              <i className={`wi ${iconCode}`}/>
             </div>
             <div className="temperatures-container">
               <h1 className="current-temperature">{this.props.todayTemp.temp}º</h1>
@@ -62,21 +62,21 @@ class Weather extends Component {
           
           <div className="weather-data-container">
             <div className="container wind">
-              <i className={`wi wi-wind towards-${this.props.todayTemp.wind.deg}-deg`}></i>
+              <i className={`wi wi-wind towards-${this.props.todayTemp.wind.deg}-deg`}/>
               <div className="data">
                 <p>{this.props.todayTemp.wind.speed}m/s</p>
                 <p>wind</p>
               </div>
             </div>
             <div className="container air-quality">
-              <i className="wi wi-smoke"></i>
+              <i className="wi wi-smoke"/>
               <div className="data">
                 <p>{airQuality.label} ({this.props.airQuality.iaqi.pm25.v})</p>
                 <p>Air Quality<i className="ball" style={{ "background": airQuality.color }} /></p>
               </div>
             </div>
             <div className="container humidity">
-              <i className="wi wi-raindrops"></i>
+              <i className="wi wi-raindrops"/>
               <div className="data">
                 <p>{this.props.todayTemp.humidity}%</p>
                 <p>humidity</p>

@@ -1,0 +1,16 @@
+.cities-list-container {
+    max-width: 400px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.search-city-label {
+    display: block;
+    margin-bottom: 0;
+}
+
+.search-city-description {
+    font-size: 12px;
+    display: block;
+}

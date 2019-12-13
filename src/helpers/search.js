@@ -53,6 +53,31 @@ export function searchCurrentLocation(loadingDescriptionCallback) {
         })
 }
 
-export function searchLocation(cityName, loadingDescriptionCallback) {
+export function searchCity(lat, lon, city, country, loadingDescriptionCallback) {
+    let returnObject = {
+        location: {
+            city,
+            country,
+            latitude: lat,
+            longitude: lon
+        }
+    };
 
+    return getWeatherByCoordinates(lat, lon)
+        //GET FIVE DAYS FORECAST WETAHER BY ID
+        .then(data => {
+            loadingDescriptionCallback('Fetching Next Five Days Forecast');
+            returnObject = { ...returnObject, todayTemp: data};
+            return getFiveDayWeatherByCoordinates(data.id);
+        })
+        //GET AIR QUALITY
+        .then(data => {
+            loadingDescriptionCallback('Fetching Air Quality');
+            returnObject = { ...returnObject, weekTemp: data };
+            return getAirQualityByCoordinates(returnObject.location.latitude, returnObject.location.longitude);
+        })
+        .then(data => {
+            returnObject = { ...returnObject, airQuality: data };
+            return returnObject;
+        })
 }
