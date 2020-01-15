@@ -22,7 +22,17 @@ class Weather extends Component {
 
   render() {
     let iconCode = getIcon(this.props.todayTemp.weather.icon);
-    let airQuality = getAirQualityInfoByIndex(this.props.airQuality.iaqi.pm25.v);
+
+    let airQuality = {};
+    try {
+      airQuality = getAirQualityInfoByIndex(this.props.airQuality.iaqi.pm25.v);
+    }
+    catch (e) { // non-standard
+      console.error( 'Cannot read airQuality pm25 value. Error description: ', e );
+      airQuality.label = 'n/a';
+      airQuality.color = '#b5b5b5';
+      airQuality.value = 'n/a';
+    }
 
     return (
       <div className="today-temp-container">
@@ -71,7 +81,7 @@ class Weather extends Component {
             <div className="container air-quality">
               <i className="wi wi-smoke"/>
               <div className="data">
-                <p>{airQuality.label} ({this.props.airQuality.iaqi.pm25.v})</p>
+                <p>{airQuality.label} ({airQuality.value})</p>
                 <p>Air Quality<i className="ball" style={{ "background": airQuality.color }} /></p>
               </div>
             </div>

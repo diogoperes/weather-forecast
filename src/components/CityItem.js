@@ -6,16 +6,12 @@ import {getIcon} from "../helpers/openWeatherMap";
 
 class CityItem extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const temp = Math.round(10*(this.props.data.main.temp -273.15))/10;
         const min_temp = Math.round(10*(this.props.data.main.temp_min -273.15))/10;
         const max_temp = Math.round(10*(this.props.data.main.temp_max -273.15))/10;
 
-        let iconCode = getIcon(this.props.data.weather.icon);
+        let iconCode = getIcon(this.props.data.weather[0].icon);
 
         return (
             <div className={"city-item"} onClick={ () => this.props.searchCity( this.props.data ) }>
