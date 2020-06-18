@@ -10,14 +10,16 @@ html, body, #root {
   position: relative;
   text-align: center;
   height: 100%;
+  background: rgb(41,128,185);
+  background: linear-gradient(157deg, rgba(41,128,185,1) 0%, rgba(109,213,250,1) 64%, rgba(255,255,255,1) 100%);
 }
 
 .loader {
   position: absolute;
   left: 50%;
   top: 50%;
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
   border-radius: 50%;
   width: 120px;
   height: 120px;
