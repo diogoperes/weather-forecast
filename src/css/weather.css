@@ -1,12 +1,12 @@
-.weather-card {
-  max-width: 400px;
+.today-temp-container .weather-card {
+  width: 400px;
   background: #f5f5f5;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   padding: 15px 20px;
   margin: auto;
 }
 
-.weather-card span {
+.today-temp-container .weather-card span {
   display: block;
 }
 

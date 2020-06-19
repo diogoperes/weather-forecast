@@ -19,9 +19,8 @@ class Weather extends Component {
     this.setState({ locationSearchValue: event.target.value });
   }
 
-
   render() {
-    let iconCode = getIcon(this.props.todayTemp.weather.icon);
+    let iconCode = getIcon(this.props.todayTemp.weather[0].icon);
 
     let airQuality = {};
     try {
@@ -61,10 +60,10 @@ class Weather extends Component {
               <h1 className="current-temperature">{this.props.todayTemp.temp}º</h1>
               <div className="min-max-temperatures">
                 <div className="min-temperature">
-                  <h5>{this.props.todayTemp.tempMin}º</h5>
+                  <h5>{ this.props.dailyTemp[0].temp.min }º</h5>
                 </div>
                 <div className="max-temperature">
-                  <h5>{this.props.todayTemp.tempMax}º</h5>
+                  <h5>{ this.props.dailyTemp[0].temp.max }º</h5>
                 </div>
               </div>
             </div>
@@ -72,9 +71,9 @@ class Weather extends Component {
           
           <div className="weather-data-container">
             <div className="container wind">
-              <i className={`wi wi-wind towards-${this.props.todayTemp.wind.deg}-deg`}/>
+              <i className={`wi wi-wind towards-${this.props.todayTemp.wind_deg}-deg`}/>
               <div className="data">
-                <p>{this.props.todayTemp.wind.speed}m/s</p>
+                <p>{this.props.todayTemp.wind_speed}m/s</p>
                 <p>wind</p>
               </div>
             </div>

@@ -8,7 +8,7 @@ class WeekWeather extends Component {
 
     render() { 
 
-        let weekTemp = this.props.data.list.slice(1, 6).map( (currTemp, index) => {
+        let weekTemp = this.props.data.slice(1, 6).map( (currTemp, index) => {
             let iconCode = getIcon(currTemp.weather[0].icon);
             let date = new Date();
             date.setDate(date.getDate() + index + 1);

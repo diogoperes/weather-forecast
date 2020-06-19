@@ -36,8 +36,7 @@ class App extends Component {
         console.log('data', data);
         this.setState(() => ({
           location: data.location,
-          todayTemp: data.todayTemp,
-          weekTemp: data.weekTemp,
+          weather: data.weather,
           airQuality: data.airQuality,
           loadingWeather: false,
         }));
@@ -65,18 +64,17 @@ class App extends Component {
   searchCityHandler (cityData) {
     console.log('searchCityHandler', cityData);
 
-    let lat = cityData.coord.lat;
-    let lon = cityData.coord.lon;
-    let city = cityData.name;
-    let country = cityData.sys.country;
+    const lat = cityData.coord.lat;
+    const lon = cityData.coord.lon;
+    const city = cityData.name;
+    const country = cityData.sys.country;
 
     searchCity(lat, lon, city, country, this.loadingDescriptionCallback)
         .then(data => {
           console.log('data', data);
           this.setState(() => ({
             location: data.location,
-            todayTemp: data.todayTemp,
-            weekTemp: data.weekTemp,
+            weather: data.weather,
             airQuality: data.airQuality,
             loadingWeather: false,
             citiesList: []
@@ -98,14 +96,15 @@ class App extends Component {
     }
 
     let weatherUI = '';
-    if (!this.state.loadingWeather && this.state.todayTemp !== undefined) {
+    if (!this.state.loadingWeather && this.state.weather !== undefined) {
       weatherUI = (
         <div className="weather-container">
           <Weather location={this.state.location} 
-            todayTemp={this.state.todayTemp} 
+            todayTemp={this.state.weather.current}
+            dailyTemp={this.state.weather.daily}
             airQuality={this.state.airQuality} 
             searchLocationCallBack={this.searchLocationHandler}/>
-          <WeekWeather data={this.state.weekTemp} />
+          <WeekWeather data={this.state.weather.daily} />
         </div>
       );
     }

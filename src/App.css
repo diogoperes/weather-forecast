@@ -26,6 +26,13 @@ html, body, #root {
   animation: spin 2s linear infinite;
 }
 
+.weather-container {
+  position: absolute;
+  top: calc( 50% - 200px );
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 @keyframes spin {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
