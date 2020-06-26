@@ -53,7 +53,10 @@ class App extends Component {
     
     getLocationCities(location)
       .then(data => {
-        this.setState(() => ({ citiesList: data.list }));
+        this.setState(() => ({
+          showCitiesListModal: true,
+          citiesList: data.list
+        }));
       })
       .catch((error) => console.error('An Error Occured: ', error));
 
@@ -77,7 +80,7 @@ class App extends Component {
             weather: data.weather,
             airQuality: data.airQuality,
             loadingWeather: false,
-            citiesList: []
+            showCitiesListModal: false
           }));
         })
         .catch((error) => console.error('An Error Occured: ', error));
@@ -96,9 +99,13 @@ class App extends Component {
     }
 
     let weatherUI = '';
+    let weatherUIClassName = 'weather-container';
+    if ( this.state.showCitiesListModal ) {
+      weatherUIClassName += ' slideUp'
+    }
     if (!this.state.loadingWeather && this.state.weather !== undefined) {
       weatherUI = (
-        <div className="weather-container">
+        <div className={weatherUIClassName}>
           <Weather location={this.state.location} 
             todayTemp={this.state.weather.current}
             dailyTemp={this.state.weather.daily}
@@ -109,18 +116,11 @@ class App extends Component {
       );
     }
 
-    let citiesList = '';
-    if ( this.state.citiesList.length > 0 ) {
-      citiesList = <div>
-        <CitiesList citiesList={this.state.citiesList} searchCity={this.searchCityHandler.bind(this)}/>
-      </div>
-    }
-
     return (
       <div className="App">
         {loadingUI}
         {weatherUI}
-        {citiesList}
+        <CitiesList show={ this.state.showCitiesListModal } citiesList={this.state.citiesList} searchCity={this.searchCityHandler.bind(this)}/>
       </div>
     );
   }
