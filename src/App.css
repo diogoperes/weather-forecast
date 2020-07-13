@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
 
+:root {
+  --card-bg-color: white;
+
+  --search-bt-bg-color: #848484;
+  --search-bt-text-color: #ffffff;
+}
+
 html, body, #root {
   height: 100%;
   margin: 0;

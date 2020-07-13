@@ -1,6 +1,6 @@
 .cities {
     width: 400px;
-    background: #f5f5f5;
+    background: var(--card-bg-color);
     border-radius: 10px;
     padding: 15px 0;
     position: absolute;
