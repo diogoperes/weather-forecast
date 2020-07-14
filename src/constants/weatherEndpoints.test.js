@@ -1,4 +1,4 @@
-import { WEATHER_LAT_LON_URL, FORECAST_ID_URL } from './weatherEndpoints';
+import {WEATHER_LAT_LON_URL, SEARCH_LOCATION_URL} from './weatherEndpoints';
 const frisby = require('frisby');
 const Joi = frisby.Joi;
 
@@ -50,55 +50,45 @@ it('Get Today Weather', async () => {
         }));
 });
 
-it('Get Weather Forecast', async () => {
-    //LISBON ID
-    let id = 8012502;
-    let url = FORECAST_ID_URL(id);
+it('Search location', async () => {
+    let location = 'Lisbon';
+    let url = SEARCH_LOCATION_URL(location);
 
     return frisby
         .get(url)
         .expect('status', 200)
         .expect('jsonTypes', Joi.object({
-            cnt: Joi.number().required(),
+            message: Joi.string().required(),
             cod: Joi.string().required(),
-            city: Joi.object({
-                coord: Joi.object({
-                    lat: Joi.number().required(),
-                    lon: Joi.number().required()
-                }),
-                country: Joi.string().required(),
-                id: Joi.number().required(),
-                name: Joi.string().required(),
-                population: Joi.number().required(),
-                timezone: Joi.number().required()
-            }).required(),
+            count: Joi.number().required(),
             list: Joi.array().items(
                 Joi.object({
-                    clouds: Joi.number().required(),
-                    deg: Joi.number().required(),
-                    dt: Joi.number().required(),
-                    humidity: Joi.number().required(),
-                    pressure: Joi.number().required(),
-                    speed: Joi.number().required(),
-                    sunrise: Joi.number().required(),
-                    sunset: Joi.number().required(),
-                    temp: Joi.object({
-                        day: Joi.number().required(),
-                        eve: Joi.number().required(),
-                        max: Joi.number().required(),
-                        min: Joi.number().required(),
-                        morn: Joi.number().required(),
-                        night: Joi.number().required(),
+                    id: Joi.number().required(),
+                    name: Joi.string().required(),
+                    coord: Joi.object({
+                        lat: Joi.number().required(),
+                        lon: Joi.number().required()
+                    }).min(1).required(),
+                    main: Joi.object({
+                        temp: Joi.number().required(),
+                        temp_min: Joi.number().required(),
+                        temp_max: Joi.number().required(),
+                        pressure: Joi.number().required(),
+                        humidity: Joi.number().required()
+                    }).min(1).required(),
+                    wind: Joi.object({
+                        speed: Joi.number().required(),
+                        deg: Joi.number().required()
+                    }),
+                    sys: Joi.object({
+                        country: Joi.string().required(),
                     }),
                     weather: Joi.array().items(
                         Joi.object({
-                            description: Joi.string().required(),
-                            icon: Joi.string().required(),
-                            id: Joi.number().required(),
-                            main: Joi.string().required(),
-                        }),
-                    ).min(1).required(),
+                            icon: Joi.string().required()
+                        })
+                    ).min(1).required()
                 })
-            ).min(2).required()
+            ).min(1).required()
         }));
 });
