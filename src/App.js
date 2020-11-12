@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import {getLocationByNavigatorGeolocation, getLocationByIp, getCityNameByLatLng} from './helpers/geolocation';
-import { getWeatherByCoordinates, getFiveDayWeatherByCoordinates } from './helpers/openWeatherMap';
-import { getAirQualityByCoordinates } from './helpers/airQuality';
+// import {getLocationByNavigatorGeolocation, getLocationByIp, getCityNameByLatLng} from './helpers/geolocation';
+// import { getWeatherByCoordinates, getFiveDayWeatherByCoordinates } from './helpers/openWeatherMap';
+// import { getAirQualityByCoordinates } from './helpers/airQuality';
+import { searchCurrentLocation, searchCity } from './helpers/search';
+import { getLocationCities } from './helpers/openWeatherMap';
 import Weather from "./components/Weather";
 import WeekWeather from "./components/WeekWeather";
+import CitiesList from "./containers/CitiesList";
 
 class App extends Component {
 
@@ -15,68 +18,30 @@ class App extends Component {
     // Don't call this.setState() here!
     this.state = {
       loadingDescription: 'Fetching geolocation',
-      loadingWeather: true
+      loadingWeather: true,
+      citiesList: []
     };
+
+    this.loadingDescriptionCallback = (text) => {
+      this.setState(() => ({ loadingDescription: text }));
+    };
+
+    this.searchLocationHandler = this.searchLocationHandler.bind(this);
   }
 
   componentDidMount() {
-    let location;
-    getLocationByNavigatorGeolocation()
-      .then(position => {
-        this.setState(() => ({ loadingDescription: 'Get City Desctription'}));
-        return getCityNameByLatLng(position.latitude , position.longitude);
-      })
-      //GET LOCATION BY IP
-      .catch(failed => {
-        this.setState(() => ({ loadingDescription: 'Get City by IP' }));
-        return getLocationByIp();
-      })
-      //GET TODAY WETAHER BY COORDINATES
-      .then(position => {
-        location = {
-          city: position.city,
-          country: position.country,
-          latitude: position.latitude,
-          longitude: position.longitude
-        };
-        this.setState(() => (
-          {location: location, 
-          loadingDescription: 'Fetching Today\'s Weather'})
-        );
-        return getWeatherByCoordinates(position.latitude , position.longitude);
-      })
-      //GET FIVE DAYS FORECAST WETAHER BY ID
+
+    searchCurrentLocation(this.loadingDescriptionCallback)
       .then(data => {
-        console.log('today data' , data);
-        this.setState(() => ({ todayTemp: data, loadingDescription: 'Fetching Next Five Days Forecast'}));
-        return getFiveDayWeatherByCoordinates(data.id);
-      })
-      //GET AIR QUALITY
-      .then(data => {
-        console.log('week data', data);
+        console.log('data', data);
         this.setState(() => ({
-          weekTemp: data,
-          loadingDescription: 'Fetching Air Quality'
-        }));
-        return getAirQualityByCoordinates(location.latitude, location.longitude);
-      })
-      .then(data => {
-        console.log('getAirQualityByCoordinates data', data);
-        this.setState(() => ({
-          airQuality: data,
+          location: data.location,
+          weather: data.weather,
+          airQuality: data.airQuality,
           loadingWeather: false,
         }));
       })
-      .catch(error => {
-        this.setState(() => ({loadingWeather: false}));
-        console.error((error && error.message) || 'Error retrieving weather for current position')
-      })
-      // .finally(() => {
-      //   this.setState(() => ({loadingWeather: false}));
-      // });
-      // .then(location => {
-      //   return store.dispatch(fetchWeather(getCityNameFromGeocode(location)));
-      // })
+      .catch((error) => console.error('An Error Occured: ', error));
       
   }
 
@@ -84,23 +49,69 @@ class App extends Component {
     window.store = this.state;
   }
 
+  searchLocationHandler (event, location) {
+    
+    getLocationCities(location)
+      .then(data => {
+        this.setState(() => ({
+          showCitiesListModal: true,
+          citiesList: data.list
+        }));
+      })
+      .catch((error) => console.error('An Error Occured: ', error));
+
+    // prevents page from refreshing when form is submited
+    event.preventDefault();
+  }
+
+  searchCityHandler (cityData) {
+    console.log('searchCityHandler', cityData);
+
+    const lat = cityData.coord.lat;
+    const lon = cityData.coord.lon;
+    const city = cityData.name;
+    const country = cityData.sys.country;
+
+    searchCity(lat, lon, city, country, this.loadingDescriptionCallback)
+        .then(data => {
+          console.log('data', data);
+          this.setState(() => ({
+            location: data.location,
+            weather: data.weather,
+            airQuality: data.airQuality,
+            loadingWeather: false,
+            showCitiesListModal: false
+          }));
+        })
+        .catch((error) => console.error('An Error Occured: ', error));
+
+  }
+
   render() {
 
     let loadingUI = '';
     if(this.state.loadingWeather) {
       loadingUI = (<div className="loader-container">
-        <div className="loader"></div>
+        <div className="loader"/>
         <div className="loader-description">{this.state.loadingDescription}</div>
       </div>
       );
     }
 
     let weatherUI = '';
-    if (!this.state.loadingWeather && this.state.todayTemp !== undefined) {
+    let weatherUIClassName = 'weather-container';
+    if ( this.state.showCitiesListModal ) {
+      weatherUIClassName += ' slideUp'
+    }
+    if (!this.state.loadingWeather && this.state.weather !== undefined) {
       weatherUI = (
-        <div className="weather-container">
-          <Weather location={this.state.location} todayTemp={this.state.todayTemp} airQuality={this.state.airQuality} />
-          <WeekWeather data={this.state.weekTemp} />
+        <div className={weatherUIClassName}>
+          <Weather location={this.state.location} 
+            todayTemp={this.state.weather.current}
+            dailyTemp={this.state.weather.daily}
+            airQuality={this.state.airQuality} 
+            searchLocationCallBack={this.searchLocationHandler}/>
+          <WeekWeather data={this.state.weather.daily} />
         </div>
       );
     }
@@ -109,6 +120,7 @@ class App extends Component {
       <div className="App">
         {loadingUI}
         {weatherUI}
+        <CitiesList show={ this.state.showCitiesListModal } citiesList={this.state.citiesList} searchCity={this.searchCityHandler.bind(this)}/>
       </div>
     );
   }

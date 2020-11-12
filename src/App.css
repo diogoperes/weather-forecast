@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
 
+:root {
+  --card-bg-color: white;
+
+  --search-bt-bg-color: #848484;
+  --search-bt-text-color: #ffffff;
+}
+
 html, body, #root {
   height: 100%;
   margin: 0;
@@ -10,18 +17,33 @@ html, body, #root {
   position: relative;
   text-align: center;
   height: 100%;
+  background: rgb(41,128,185);
+  background: linear-gradient(157deg, rgba(41,128,185,1) 0%, rgba(109,213,250,1) 64%, rgba(255,255,255,1) 100%);
 }
 
 .loader {
   position: absolute;
   left: 50%;
   top: 50%;
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
   border-radius: 50%;
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
+}
+
+.weather-container {
+  position: absolute;
+  top: calc( 50% );
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 500ms ease-in-out;
+  z-index: 2;
+}
+
+.weather-container.slideUp {
+  top: calc( 50% - 200px );
 }
 
 @keyframes spin {

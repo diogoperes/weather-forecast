@@ -40,6 +40,7 @@ test('Test Empty response', () => {
         .then(onResponse)
         .catch(onError)
         .then(() => {
+            console.log('response', onResponse);
             expect(onResponse).not.toHaveBeenCalled();
             expect(onError).toHaveBeenCalled();
             expect(onError.mock.calls[0][0].message).toMatch("Empty Response");
