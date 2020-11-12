@@ -15,7 +15,7 @@ class WeekWeather extends Component {
 
             return (<div key={index} className="week-temp-container"> 
                 <span className="day-name">{getWeekday(date).substring(0, 3)}</span>
-                <div className="icon-container"><i className={`wi ${iconCode}`}></i></div>
+                <div className="icon-container"><i className={`wi ${iconCode}`}/></div>
                 <div className="maxTemp">{currTemp.temp.max}º</div>
                 <div className="minTemp">{currTemp.temp.min}º</div>
             </div>)

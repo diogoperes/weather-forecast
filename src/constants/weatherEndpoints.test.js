@@ -12,41 +12,43 @@ it('Get Today Weather', async () => {
         .get(url)
         .expect('status', 200)
         .expect('jsonTypes', Joi.object({
-            cod: Joi.number().required(),
-            coord: Joi.object({
-                lat: Joi.number().required(),
-                lon: Joi.number().required()
-            }),
-            id: Joi.number().required(),
-            main: Joi.object({
-                humidity: Joi.number().required(),
-                pressure: Joi.number().required(),
+            current: Joi.object({
                 temp: Joi.number().required(),
-                temp_max: Joi.number().required(),
-                temp_min: Joi.number().required(),
+                pressure: Joi.number().required(),
+                humidity: Joi.number().required(),
+                wind_deg: Joi.number().required(),
+                wind_speed: Joi.number().required(),
+                visibility: Joi.number().required(),
+                weather: Joi.array().items(
+                    Joi.object({
+                        description: Joi.string().required(),
+                        icon: Joi.string().required(),
+                        id: Joi.number().required(),
+                        main: Joi.string().required(),
+                    })
+                ).min(1).required(),
             }),
-            name: Joi.string().required(),
-            sys: Joi.object({
-                country: Joi.string().required(),
-                id: Joi.number().required(),
-                sunrise: Joi.number().required(),
-                sunset: Joi.number().required(),
-                type: Joi.number().required(),
-            }),
-            timezone: Joi.number().required(),
-            visibility: Joi.number().required(),
-            weather: Joi.array().items(
+            daily: Joi.array().items(
                 Joi.object({
-                    description: Joi.string().required(),
-                    icon: Joi.string().required(),
-                    id: Joi.number().required(),
-                    main: Joi.string().required(),
-                }),
+                    temp: Joi.object({
+                        morn: Joi.number(),
+                        day: Joi.number(),
+                        eve: Joi.number(),
+                        night: Joi.number(),
+                        max: Joi.number().required(),
+                        min: Joi.number().required()
+                    }),
+                    weather: Joi.array().items(
+                        Joi.object({
+                            description: Joi.string().required(),
+                            icon: Joi.string().required(),
+                            id: Joi.number().required(),
+                            main: Joi.string().required(),
+                        }),
+                    ).min(1).required(),
+                })
             ).min(1).required(),
-            wind: Joi.object({
-                deg: Joi.number(),
-                speed: Joi.number().required(),
-            }),
+            timezone: Joi.string(),
         }));
 });
 

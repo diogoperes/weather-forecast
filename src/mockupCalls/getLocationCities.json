@@ -1,0 +1,192 @@
+{
+  "message": "accurate",
+  "cod": "200",
+  "count": 5,
+  "list": [
+    {
+      "id": 2267057,
+      "name": "Lisbon",
+      "coord": {
+        "lat": 38.7167,
+        "lon": -9.1333
+      },
+      "main": {
+        "temp": 293.72,
+        "feels_like": 292.99,
+        "temp_min": 293.15,
+        "temp_max": 294.26,
+        "pressure": 1019,
+        "humidity": 77
+      },
+      "dt": 1600200669,
+      "wind": {
+        "speed": 4.1,
+        "deg": 240
+      },
+      "sys": {
+        "country": "PT"
+      },
+      "rain": null,
+      "snow": null,
+      "clouds": {
+        "all": 20
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "few clouds",
+          "icon": "02n"
+        }
+      ]
+    },
+    {
+      "id": 4969622,
+      "name": "Lisbon",
+      "coord": {
+        "lat": 44.0315,
+        "lon": -70.1045
+      },
+      "main": {
+        "temp": 289.21,
+        "feels_like": 285.33,
+        "temp_min": 288.15,
+        "temp_max": 290.37,
+        "pressure": 1024,
+        "humidity": 44
+      },
+      "dt": 1600200822,
+      "wind": {
+        "speed": 3.6,
+        "deg": 210
+      },
+      "sys": {
+        "country": "US"
+      },
+      "rain": null,
+      "snow": null,
+      "clouds": {
+        "all": 20
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "few clouds",
+          "icon": "02d"
+        }
+      ]
+    },
+    {
+      "id": 4837798,
+      "name": "Lisbon",
+      "coord": {
+        "lat": 41.604,
+        "lon": -72.0117
+      },
+      "main": {
+        "temp": 292.59,
+        "feels_like": 290.24,
+        "temp_min": 291.48,
+        "temp_max": 293.71,
+        "pressure": 1024,
+        "humidity": 41
+      },
+      "dt": 1600200818,
+      "wind": {
+        "speed": 2,
+        "deg": 197
+      },
+      "sys": {
+        "country": "US"
+      },
+      "rain": null,
+      "snow": null,
+      "clouds": {
+        "all": 0
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+        }
+      ]
+    },
+    {
+      "id": 4516749,
+      "name": "Lisbon",
+      "coord": {
+        "lat": 39.8609,
+        "lon": -83.6352
+      },
+      "main": {
+        "temp": 294.79,
+        "feels_like": 292.89,
+        "temp_min": 294.15,
+        "temp_max": 295.37,
+        "pressure": 1023,
+        "humidity": 46
+      },
+      "dt": 1600200812,
+      "wind": {
+        "speed": 2.6,
+        "deg": 0
+      },
+      "sys": {
+        "country": "US"
+      },
+      "rain": null,
+      "snow": null,
+      "clouds": {
+        "all": 1
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+        }
+      ]
+    },
+    {
+      "id": 5160951,
+      "name": "Lisbon",
+      "coord": {
+        "lat": 40.772,
+        "lon": -80.7681
+      },
+      "main": {
+        "temp": 292.74,
+        "feels_like": 292.18,
+        "temp_min": 292.04,
+        "temp_max": 293.15,
+        "pressure": 1023,
+        "humidity": 50
+      },
+      "dt": 1600200829,
+      "wind": {
+        "speed": 0.45,
+        "deg": 116
+      },
+      "sys": {
+        "country": "US"
+      },
+      "rain": null,
+      "snow": null,
+      "clouds": {
+        "all": 0
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+        }
+      ]
+    }
+  ]
+}
