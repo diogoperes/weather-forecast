@@ -6,25 +6,36 @@ import { getWeekday } from '../helpers/datetime';
 class WeekWeather extends Component {
 
 
-    render() { 
+    render() {
 
-        let weekTemp = this.props.data.slice(1, 6).map( (currTemp, index) => {
-            let iconCode = getIcon(currTemp.weather[0].icon);
+        let onWeekWeatherCardClick = ( event, weekDayIndex ) => {
+            this.props.onCardClick(weekDayIndex);
+        };
+
+        let weekTemperatures = [];
+        for( let weekDayIndex = 0; weekDayIndex < 5; weekDayIndex++ ) {
+            let iconCode = getIcon(this.props.data[weekDayIndex].weather[0].icon);
             let date = new Date();
-            date.setDate(date.getDate() + index + 1);
+            date.setDate(date.getDate() + weekDayIndex);
 
-            return (<div key={index} className="week-temp-container"> 
-                <span className="day-name">{getWeekday(date).substring(0, 3)}</span>
-                <div className="icon-container"><i className={`wi ${iconCode}`}/></div>
-                <div className="maxTemp">{currTemp.temp.max}º</div>
-                <div className="minTemp">{currTemp.temp.min}º</div>
-            </div>)
-        });
+            let className = "week-temp-container";
+            if ( weekDayIndex === this.props.weekDaySelected ) {
+                className += ' selected';
+            }
+
+            weekTemperatures.push(
+                <div key={weekDayIndex} className={className} onClick={(e) => onWeekWeatherCardClick(e, weekDayIndex)}>
+                    <span className="day-name">{getWeekday(date).substring(0, 3)}</span>
+                    <div className="icon-container"><i className={`wi ${iconCode}`}/></div>
+                    <div className="maxTemp">{this.props.data[weekDayIndex].temp.max}º</div>
+                    <div className="minTemp">{this.props.data[weekDayIndex].temp.min}º</div>
+                </div>);
+        }
 
         return (
             <div className="weekWeather">
                 <div className="weather-card">
-                    {weekTemp}
+                    {weekTemperatures}
                 </div>
             </div>
         );

@@ -1,5 +1,5 @@
-import { WEATHER_LAT_LON_URL, FORECAST_ID_URL, SEARCH_LOCATION_URL} from '../constants/weatherEndpoints';
-import { EMULATE_REQUESTS } from '../constants/system';
+import { WEATHER_LAT_LON_URL, SEARCH_LOCATION_URL} from '../constants/weatherEndpoints';
+// import { EMULATE_REQUESTS } from '../constants/system';
 // import * as Icon from 'react-feather';
 import 'weathericons/css/weather-icons.css';
 import '../css/weather.css';

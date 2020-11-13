@@ -17,6 +17,7 @@ class App extends Component {
     super(props);
     // Don't call this.setState() here!
     this.state = {
+      weekDaySelected: 0,
       loadingDescription: 'Fetching geolocation',
       loadingWeather: true,
       citiesList: []
@@ -111,7 +112,7 @@ class App extends Component {
             dailyTemp={this.state.weather.daily}
             airQuality={this.state.airQuality} 
             searchLocationCallBack={this.searchLocationHandler}/>
-          <WeekWeather data={this.state.weather.daily} />
+          <WeekWeather data={this.state.weather.daily} weekDaySelected={this.state.weekDaySelected} onCardClick={(index) => this.setState({weekDaySelected: index})}/>
         </div>
       );
     }
