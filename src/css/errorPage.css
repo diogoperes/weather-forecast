@@ -1,0 +1,147 @@
+.errorPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 300ms linear;
+    background: rgb(47, 47, 47);
+    background: linear-gradient(-35deg, #232323, #353535 77%,#383838);
+}
+
+.errorPage.visible {
+    opacity: 1;
+}
+
+.errorPage h3 {
+    position: absolute;
+    white-space: nowrap;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    top: 0;
+    left: 50%;
+    color: #777777;
+}
+
+.errorPage .container{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 200px;
+    width: 230px;
+}
+
+.errorPage .cloud{
+    height: 80px;
+    width:200px;
+    background-color: #dedcdb;
+    border-radius: 50px;
+    position: relative;
+    margin:120px auto 0;
+    display: inline-block;
+
+
+}
+
+.errorPage .cloud:after {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 80px;
+    border-radius: 80px 80px 0 0;
+    top: -40px;
+    background: #dedcdb;
+    left: 40px;
+}
+.errorPage .eyes span:first-child{
+    content:'';
+    display: block;
+    height: 10px;
+    width: 10px;
+    top:170px;
+    left: 70px;
+    background:black;
+    border-radius: 100%;
+    position: absolute;
+}
+.errorPage .eyes span:last-child{
+    content:'';
+    display: block;
+    height: 10px;
+    width: 10px;
+    top:170px;
+    left: 150px;
+    background:black;
+    border-radius: 100%;
+    position: absolute;
+}
+.errorPage .mouth{
+    content: '';
+    display: block;
+    background:black;
+    height: 8px;
+    width: 8px;
+    left: 110px;
+    top: 185px;
+    border-radius: 100% 100% 80% 80%;
+    position: absolute;
+}
+
+.errorPage .rain {
+    width: 180px;
+    height: 140px;
+}
+
+.errorPage .rainDrop {
+    position: relative;
+    float: left;
+    width: 4px;
+    margin: 10px;
+    left: 40px;
+    background: #84C7EB;
+    border-radius: 160px 160px 160px 160px;
+    animation: rain 0.8s infinite ease-out;
+}
+
+.errorPage .rainDrop:nth-child(1) {
+    height: 35px;
+    top: 5px;
+    animation-delay: -1.0s;
+
+}
+
+.errorPage .rainDrop:nth-child(2) {
+    height: 20px;
+    animation-delay: -1.4s;
+}
+
+.errorPage .rainDrop:nth-child(3) {
+    height: 15px;
+    top: 5px;
+    animation-delay: -1.6s;
+}
+
+.errorPage .rainDrop:nth-child(4) {
+    height: 10px;
+    top: 10px;
+    animation-delay: -1.2s;
+}
+
+.errorPage .rainDrop:nth-child(5) {
+    height: 18px;
+    top: 15px;
+    animation-delay: -1.6s;
+}
+
+@keyframes rain {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0.2;
+        transform: translate(0, 100px);
+    }
+}

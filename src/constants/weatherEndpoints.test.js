@@ -46,6 +46,9 @@ it('Get Today Weather', async () => {
                             main: Joi.string().required(),
                         }),
                     ).min(1).required(),
+                    wind_speed: Joi.number().required(),
+                    wind_deg: Joi.number().required(),
+                    humidity: Joi.number().required(),
                 })
             ).min(1).required(),
             timezone: Joi.string(),

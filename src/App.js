@@ -10,6 +10,8 @@ import { getLocationCities } from './helpers/openWeatherMap';
 import Weather from "./components/Weather";
 import WeekWeather from "./components/WeekWeather";
 import CitiesList from "./containers/CitiesList";
+import {REQUEST_STATUS} from "./constants/system";
+import {ErrorPage} from "./components/ErrorPage";
 
 class App extends Component {
 
@@ -31,7 +33,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-
+    this.setState(() => ({ requestStatus: REQUEST_STATUS.PENDING }));
     searchCurrentLocation(this.loadingDescriptionCallback)
       .then(data => {
         console.log('data', data);
@@ -40,9 +42,15 @@ class App extends Component {
           weather: data.weather,
           airQuality: data.airQuality,
           loadingWeather: false,
+          requestStatus: REQUEST_STATUS.SUCCESS
         }));
       })
-      .catch((error) => console.error('An Error Occured: ', error));
+      .catch((error) => {
+        this.setState(() => ({
+          requestStatus: REQUEST_STATUS.ERROR
+        }));
+        console.error('An Error Occured: ', error);
+      });
       
   }
 
@@ -51,6 +59,9 @@ class App extends Component {
   }
 
   searchLocationHandler (event, location) {
+    // prevents page from refreshing when form is submited
+    event.preventDefault();
+    if ( location === '' ) return;
     
     getLocationCities(location)
       .then(data => {
@@ -60,9 +71,6 @@ class App extends Component {
         }));
       })
       .catch((error) => console.error('An Error Occured: ', error));
-
-    // prevents page from refreshing when form is submited
-    event.preventDefault();
   }
 
   searchCityHandler (cityData) {
@@ -99,6 +107,8 @@ class App extends Component {
       );
     }
 
+    let errorPage = <ErrorPage visible={this.state.requestStatus === REQUEST_STATUS.ERROR}/>
+
     let weatherUI = '';
     let weatherUIClassName = 'weather-container';
     if ( this.state.showCitiesListModal ) {
@@ -111,7 +121,8 @@ class App extends Component {
             todayTemp={this.state.weather.current}
             dailyTemp={this.state.weather.daily}
             airQuality={this.state.airQuality} 
-            searchLocationCallBack={this.searchLocationHandler}/>
+            searchLocationCallBack={this.searchLocationHandler}
+            weekDaySelected={this.state.weekDaySelected}/>
           <WeekWeather data={this.state.weather.daily} weekDaySelected={this.state.weekDaySelected} onCardClick={(index) => this.setState({weekDaySelected: index})}/>
         </div>
       );
@@ -122,6 +133,7 @@ class App extends Component {
         {loadingUI}
         {weatherUI}
         <CitiesList show={ this.state.showCitiesListModal } citiesList={this.state.citiesList} searchCity={this.searchCityHandler.bind(this)}/>
+        {errorPage}
       </div>
     );
   }
