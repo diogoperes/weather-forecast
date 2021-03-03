@@ -18,7 +18,8 @@ html, body, #root {
   text-align: center;
   height: 100%;
   background: rgb(41,128,185);
-  background: linear-gradient(157deg, rgba(41,128,185,1) 0%, rgba(109,213,250,1) 64%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(-35deg, #2980b9, #6dd5fa 77%,#fff);
+  transition: background-color 500ms linear;
 }
 
 .loader {
@@ -40,6 +41,8 @@ html, body, #root {
   transform: translate(-50%, -50%);
   transition: all 500ms ease-in-out;
   z-index: 2;
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  border-radius: 10px;
 }
 
 .weather-container.slideUp {
