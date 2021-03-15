@@ -3,8 +3,10 @@
 :root {
   --card-bg-color: white;
 
-  --search-bt-bg-color: #848484;
+  --search-bt-bg-color: #51b1df;
   --search-bt-text-color: #ffffff;
+
+  --week-bt-bg-color: #51b1df;
 }
 
 html, body, #root {

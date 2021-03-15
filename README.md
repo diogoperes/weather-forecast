@@ -2,11 +2,23 @@
 
 Weather app built with react.
 
-It uses the user browser location if the user allows it or the IP address if not.
+Uses the user browser location if the user allows it, or the IP address if not.
 
+http://api.openweathermap.org used to retrieve the weather data.
+https://api.waqi.info/feed used to retrieve air quality info.
 
-Run tests locally
+# Run develop
+```bash
+npm start
+```
+
+# Run Tests
+```bash
 npm test -- --coverage --silent
+```
 
+Flags:
+```bash
 --coverage: show code coverage
 --silent: prevent console.logs
+```

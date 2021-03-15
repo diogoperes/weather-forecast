@@ -31,7 +31,7 @@
 }
 
 .week-temp-container.selected {
-  background: #848484;
+  background: var(--week-bt-bg-color);
   color: #ffffff;
 }
 

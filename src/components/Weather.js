@@ -89,7 +89,7 @@ class Weather extends Component {
             <div className="temperatures-container">
               { this.props.weekDaySelected === 0
                   ? <h1 className="current-temperature">{this.props.todayTemp.temp}º</h1>
-                  : <h1 className="current-temperature">N/A</h1>}
+                  : <h1 className="current-temperature">--.--</h1>}
               <div className="min-max-temperatures">
                 <div className="min-temperature">
                   <h5>{ this.props.dailyTemp[this.props.weekDaySelected].temp.min }º</h5>
